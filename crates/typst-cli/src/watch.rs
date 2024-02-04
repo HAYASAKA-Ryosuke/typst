@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
+use std::thread;
 
 use codespan_reporting::term::termcolor::WriteColor;
 use codespan_reporting::term::{self, termcolor};
@@ -123,6 +124,7 @@ fn watch_dependencies(
 
 /// Whether a watch event is relevant for compilation.
 fn is_event_relevant(event: &notify::Event, output: &Path) -> bool {
+    thread::sleep(std::time::Duration::from_millis(100));
     // Never recompile because the output file changed.
     if event
         .paths
